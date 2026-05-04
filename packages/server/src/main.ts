@@ -10,6 +10,13 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // Asegurar que la carpeta de uploads existe
+  const fs = require('fs');
+  const uploadsDir = join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+
   // Servir archivos estáticos (reportes)
   app.useStaticAssets(join(process.cwd(), 'uploads'), {
     prefix: '/uploads/',

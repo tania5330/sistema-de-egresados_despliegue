@@ -8,14 +8,15 @@ const nextConfig: NextConfig = {
     },
   },
   async rewrites() {
+    const backendUrl = process.env.API_URL || "http://127.0.0.1:3001";
     return [
       {
         source: "/api/trpc/:path*",
-        destination: "http://127.0.0.1:3001/trpc/:path*",
+        destination: `${backendUrl}/trpc/:path*`,
       },
       {
         source: "/uploads/:path*",
-        destination: "http://127.0.0.1:3001/uploads/:path*",
+        destination: `${backendUrl}/uploads/:path*`,
       },
     ];
   },

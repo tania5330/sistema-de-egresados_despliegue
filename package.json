@@ -12,6 +12,8 @@
     "build": "npm run build --workspaces",
     "build:server": "npm run build --workspace=@SistemaEgresados/server",
     "build:web": "npm run build --workspace=@SistemaEgresados/web",
+    "deploy:server": "npm run prisma:generate --workspace=@SistemaEgresados/server && npm run build --workspace=@SistemaEgresados/server",
+    "deploy:web": "npm run build --workspace=@SistemaEgresados/web",
     "test": "npm run test --workspaces",
     "test:server": "npm run test --workspace=@SistemaEgresados/server",
     "test:web": "npm run test --workspace=@SistemaEgresados/web",
