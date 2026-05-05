@@ -14,6 +14,20 @@ out/
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
+
+# Prisma
+/packages/server/prisma/dev.db
+/packages/server/prisma/dev.db-journal
+
+# Uploads
+/packages/server/uploads/*
+!/packages/server/uploads/.gitkeep
+
+# Railway/Nixpacks
+.nixpacks
+.railway
 
 # Logs
 logs/
