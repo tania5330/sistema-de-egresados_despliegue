@@ -20,6 +20,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Desactivar telemetría de Next.js durante el build
+ENV NEXT_TELEMETRY_DISABLED 1
+
 RUN npm run build --workspace=@SistemaEgresados/web
 
 # === PRODUCTION STAGE ===
@@ -31,10 +34,15 @@ WORKDIR /app
 
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 
+# Desactivar telemetría de Next.js en producción
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Copiar archivos necesarios para el runtime de Next.js
 COPY --from=builder --chown=nextjs:nodejs /app/packages/web/.next ./packages/web/.next
-COPY --from=builder --chown=nextjs:nodejs /app/packages/web/node_modules ./packages/web/node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/packages/web/public ./packages/web/public
 COPY --from=builder --chown=nextjs:nodejs /app/packages/web/package.json ./packages/web/package.json
-COPY --from=builder --chown=nextjs:nodejs /app/packages/web/public ./packages/web/public || true
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
 RUN chown -R nextjs:nodejs /app
 
