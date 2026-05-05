@@ -7,6 +7,7 @@ export enum UserRole {
 }
 
 export class LoginDto {
+  @IsNotEmpty({ message: 'Email es requerido' })
   @IsEmail({}, { message: 'Email inválido' })
   email: string;
 
@@ -15,6 +16,7 @@ export class LoginDto {
 }
 
 export class RegisterDto {
+  @IsNotEmpty({ message: 'Email es requerido' })
   @IsEmail({}, { message: 'Email inválido' })
   email: string;
 
